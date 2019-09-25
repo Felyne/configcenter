@@ -12,8 +12,8 @@ import (
 var ErrNoConfig = errors.New("no config")
 
 const (
-	pathSeparator  = "/"
-	configBasePath = "config_center"
+	PathSeparator  = "/"
+	ConfigBasePath = "config_center"
 	contextTimeout = 15 * time.Second
 )
 
@@ -71,7 +71,7 @@ func (cc *ConfigCenter) RemoveConfig(cfgName string) error {
 
 func (cc *ConfigCenter) ListConfig() (map[string]string, error) {
 	basePath := strings.Join(
-		[]string{configBasePath, cc.envName, ""}, pathSeparator)
+		[]string{ConfigBasePath, cc.envName, ""}, PathSeparator)
 	ctx, cancel := context.WithTimeout(
 		context.Background(),
 		contextTimeout)
@@ -88,7 +88,7 @@ func (cc *ConfigCenter) ListConfig() (map[string]string, error) {
 	retMap := make(map[string]string)
 	for _, ev := range resp.Kvs {
 		key := string(ev.Key)
-		pos := strings.LastIndex(key, pathSeparator)
+		pos := strings.LastIndex(key, PathSeparator)
 		if pos == len(key)-1 {
 			continue
 		}
@@ -100,5 +100,5 @@ func (cc *ConfigCenter) ListConfig() (map[string]string, error) {
 
 func (cc *ConfigCenter) genPath(cfgName string) string {
 	return strings.Join(
-		[]string{configBasePath, cc.envName, cfgName}, pathSeparator)
+		[]string{ConfigBasePath, cc.envName, cfgName}, PathSeparator)
 }
