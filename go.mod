@@ -1,4 +1,4 @@
-module github.com/Felyne/config-center
+module github.com/Felyne/config_center
 
 go 1.12
 

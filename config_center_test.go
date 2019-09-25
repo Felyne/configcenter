@@ -14,7 +14,7 @@ a=b
 c=1
 `
 
-func TestFlow(t *testing.T) {
+func TestConfigCenter(t *testing.T) {
 	var err error
 	key := "xx125"
 
