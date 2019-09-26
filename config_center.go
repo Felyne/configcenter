@@ -13,7 +13,7 @@ var ErrNoConfig = errors.New("no config")
 
 const (
 	PathSeparator  = "/"
-	ConfigBasePath = "config_center"
+	ConfigBasePath = "/config_center"
 	contextTimeout = 15 * time.Second
 )
 
