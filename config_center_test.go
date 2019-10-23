@@ -24,7 +24,7 @@ func TestConfigCenter(t *testing.T) {
 	})
 	assert.Equal(t, nil, err)
 	defer cli.Close()
-	cc := NewConfigCenter(cli, "test")
+	cc := New(cli, "test")
 
 	assert.Equal(t, nil, err)
 	err = cc.SetConfig(key, cfgContent)

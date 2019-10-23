@@ -9,7 +9,7 @@ import (
 	"github.com/coreos/etcd/clientv3"
 )
 
-var ErrNoConfig = errors.New("no config")
+var ErrNoConfig = errors.New("no config in etcd")
 
 const (
 	PathSeparator  = "/"
@@ -22,7 +22,7 @@ type ConfigCenter struct {
 	envName    string
 }
 
-func NewConfigCenter(client *clientv3.Client, envName string) *ConfigCenter {
+func New(client *clientv3.Client, envName string) *ConfigCenter {
 	envName = strings.Trim(envName, " \t\r\n")
 	if "" == envName {
 		envName = "_"
