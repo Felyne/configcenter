@@ -1,4 +1,4 @@
-package config_center
+package center
 
 import (
 	"testing"
