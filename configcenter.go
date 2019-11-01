@@ -13,7 +13,7 @@ var ErrNoConfig = errors.New("no config in etcd")
 
 const (
 	PathSeparator  = "/"
-	ConfigBasePath = "/config_center"
+	ConfigBasePath = "/config-center"
 )
 
 type ConfigCenter struct {
@@ -23,7 +23,7 @@ type ConfigCenter struct {
 
 func New(client *clientv3.Client, envName string) *ConfigCenter {
 	envName = strings.Trim(envName, " \t\r\n")
-	if "" == envName {
+	if envName == "" {
 		envName = "_"
 	}
 	return &ConfigCenter{
@@ -36,7 +36,7 @@ func (cc *ConfigCenter) GetConfig(cfgName string) (string, error) {
 	cfgPath := cc.genPath(cfgName)
 	ctx, cancel := context.WithTimeout(
 		context.Background(),
-		15 * time.Second)
+		15*time.Second)
 	resp, err := cc.etcdClient.Get(ctx, cfgPath)
 	cancel()
 	if nil != err {
@@ -52,7 +52,7 @@ func (cc *ConfigCenter) SetConfig(cfgName string, content string) error {
 	cfgPath := cc.genPath(cfgName)
 	ctx, cancel := context.WithTimeout(
 		context.Background(),
-		15 * time.Second)
+		15*time.Second)
 	_, err := cc.etcdClient.Put(ctx, cfgPath, content)
 	cancel()
 	return err
@@ -62,7 +62,7 @@ func (cc *ConfigCenter) RemoveConfig(cfgName string) error {
 	cfgPath := cc.genPath(cfgName)
 	ctx, cancel := context.WithTimeout(
 		context.Background(),
-		15 * time.Second)
+		15*time.Second)
 	_, err := cc.etcdClient.Delete(ctx, cfgPath)
 	cancel()
 	return err
@@ -73,7 +73,7 @@ func (cc *ConfigCenter) ListConfig() (map[string]string, error) {
 		[]string{ConfigBasePath, cc.envName, ""}, PathSeparator)
 	ctx, cancel := context.WithTimeout(
 		context.Background(),
-		15 * time.Second)
+		15*time.Second)
 
 	resp, err := cc.etcdClient.Get(ctx, basePath,
 		clientv3.WithPrefix())
